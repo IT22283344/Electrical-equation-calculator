@@ -94,7 +94,7 @@ public class home extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        Calculator cal = new Calculator();
+        CalculatorN cal = new CalculatorN();
         cal.setVisible(true);
         this.dispose();  
     }//GEN-LAST:event_jButton2ActionPerformed
