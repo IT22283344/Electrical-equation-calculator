@@ -1,29 +1,32 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package gui;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.text.DecimalFormat;
 import java.util.Vector;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author User
+ * @author Hirusha_R
  */
-public class V_eq_P_ov_I extends javax.swing.JPanel {
-    
+public class I_eq_V_ov_Rnew extends javax.swing.JPanel {
+
+    /**
+     * Creates new form NewJPanel
+     * @param aThis
+     */
     Equation eq;
     DecimalFormat df = new DecimalFormat("0.00");
-     
+    
     private final String url = "jdbc:mysql://localhost:3306/eleccal"; 
     private final String username = "root"; 
     private final String password = "1111";
@@ -33,25 +36,17 @@ public class V_eq_P_ov_I extends javax.swing.JPanel {
     ResultSet rs =null;
     int q,i,id,deletecount;
 
-    /**
-     * Creates new form V_eq_P_ov_I
-     */
-    public V_eq_P_ov_I() {
+    
+    public I_eq_V_ov_Rnew(Equation aThis) {
         initComponents();
         UpdateDB();
     }
-
-    public V_eq_P_ov_I(Equation eq) {
-        initComponents();
-        this.eq = eq;
-        UpdateDB(); 
-    }
     
-    public void UpdateDB(){
+     public void UpdateDB(){
         try{
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            Class.forName("com.mysql.jdbc.Driver");
             sqlCon = DriverManager.getConnection(url,username,password);
-            pstat = sqlCon.prepareStatement("SELECT * FROM phistory ORDER BY  updated_at DESC");
+            pstat = sqlCon.prepareStatement("SELECT * FROM ihistory ORDER BY  updated_at DESC");
             
             rs = pstat.executeQuery();
             ResultSetMetaData stData =rs.getMetaData();
@@ -64,9 +59,10 @@ public class V_eq_P_ov_I extends javax.swing.JPanel {
                 Vector columnData = new Vector();
                 
                 for(i=1; i<=q; i++){
-                    columnData.add(rs.getString("P"));
-                    columnData.add(rs.getString("I"));
                     columnData.add(rs.getString("V"));
+                    columnData.add(rs.getString("R"));
+                    columnData.add(rs.getString("I"));
+
 
                 }
               RecordTable.addRow(columnData);
@@ -78,7 +74,7 @@ public class V_eq_P_ov_I extends javax.swing.JPanel {
         }
         
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -88,6 +84,7 @@ public class V_eq_P_ov_I extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
@@ -103,9 +100,9 @@ public class V_eq_P_ov_I extends javax.swing.JPanel {
         jLabel7 = new javax.swing.JLabel();
         jButtonHclear = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(204, 204, 204));
-        setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true), "V=P/I", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 14))); // NOI18N
-        setPreferredSize(new java.awt.Dimension(646, 415));
+        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true), "I=V/R\n", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 14))); // NOI18N
+        jPanel1.setPreferredSize(new java.awt.Dimension(646, 415));
 
         jButton1.setBackground(new java.awt.Color(0, 153, 255));
         jButton1.setFont(new java.awt.Font("Bookman Old Style", 1, 18)); // NOI18N
@@ -138,16 +135,17 @@ public class V_eq_P_ov_I extends javax.swing.JPanel {
 
         jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Power (P)   :-");
+        jLabel4.setText("Voltage (V)  :-");
 
         jLabel5.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Current (I)  :-");
+        jLabel5.setText("Ressitor (R) :-");
 
         jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("Voltage (V)  :-");
+        jLabel6.setText("Current (I)  :-");
 
+        jTable1.setAutoCreateRowSorter(true);
         jTable1.setBackground(new java.awt.Color(204, 204, 255));
         jTable1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -174,7 +172,7 @@ public class V_eq_P_ov_I extends javax.swing.JPanel {
                 {null, null, null}
             },
             new String [] {
-                "P", "I", "V"
+                "V", "R", "I"
             }
         ));
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -209,59 +207,59 @@ public class V_eq_P_ov_I extends javax.swing.JPanel {
             }
         });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(20, 20, 20)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jButtonreset, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(21, 21, 21)
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jButtonHclear)
                         .addGap(109, 109, 109))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
                         .addGap(61, 61, 61))))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(11, 11, 11)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGap(34, 34, 34)
@@ -273,79 +271,64 @@ public class V_eq_P_ov_I extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(32, 32, 32)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jButtonHclear, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(42, Short.MAX_VALUE))
         );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 646, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 415, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String P = jTextField1.getText();
-        String I = jTextField2.getText();
+        String V = jTextField1.getText();
+        String R = jTextField2.getText();
 
-        Double P_D = Double.parseDouble(P);
-        Double I_D = Double.parseDouble(I);
-        Double Total_V= P_D / I_D;
-        
-      
-        
-        jLabel1.setText(Total_V.toString());
+        Double V_D = Double.valueOf(V);
+        Double R_D = Double.valueOf(R);
+        Double Total = V_D / R_D;
 
-         try{
-           
-            pstat = sqlCon.prepareStatement("insert into phistory(P,I,V)value(?,?,?)");
-            
-            
+        jLabel1.setText(Total.toString());
+
+        try{
+
+            pstat = sqlCon.prepareStatement("insert into ihistory(V,R,I)value(?,?,?)");
+
             pstat.setString(1,jTextField1.getText());
             pstat.setString(2,jTextField2.getText());
             pstat.setString(3,jLabel1.getText());
-            
+
             pstat.executeUpdate();
             UpdateDB();
 
-         }catch(Exception ex){
-             
-         }   
-        
+        }catch(Exception ex){
+
+        }
 
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButtonresetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonresetActionPerformed
-        jTextField1.setText("");
-        jTextField2.setText("");
-        jLabel1.setText("");
-    }//GEN-LAST:event_jButtonresetActionPerformed
-
-    private void jButtonHclearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHclearActionPerformed
-         int confirmation = JOptionPane.showConfirmDialog(null, 
-        "Are you sure you want to delete all records?", 
-        "Confirm Delete", 
-        JOptionPane.YES_NO_OPTION);
-
-    if (confirmation == JOptionPane.YES_OPTION) {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            sqlCon = DriverManager.getConnection(url, username, password);
-
-            // Execute delete query
-            String deleteQuery = "DELETE FROM phistory";
-            pstat = sqlCon.prepareStatement(deleteQuery);
-            pstat.executeUpdate();
-
-            // Refresh the table
-            UpdateDB();
-
-            JOptionPane.showMessageDialog(null, "All records have been deleted successfully!");
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
-        }
-    }
-    }//GEN-LAST:event_jButtonHclearActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         DefaultTableModel RecordTable = (DefaultTableModel)jTable1.getModel();
@@ -355,6 +338,38 @@ public class V_eq_P_ov_I extends javax.swing.JPanel {
         jTextField2.setText(RecordTable.getValueAt(selectedrow,2).toString());
         jLabel1.setText(RecordTable.getValueAt(selectedrow,3).toString());
     }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jButtonresetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonresetActionPerformed
+        jTextField1.setText("");
+        jTextField2.setText("");
+        jLabel1.setText("");
+    }//GEN-LAST:event_jButtonresetActionPerformed
+
+    private void jButtonHclearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHclearActionPerformed
+        int confirmation = JOptionPane.showConfirmDialog(null,
+            "Are you sure you want to delete all records?",
+            "Confirm Delete",
+            JOptionPane.YES_NO_OPTION);
+
+        if (confirmation == JOptionPane.YES_OPTION) {
+            try {
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                sqlCon = DriverManager.getConnection(url, username, password);
+
+                // Execute delete query
+                String deleteQuery = "DELETE FROM ihistory";
+                pstat = sqlCon.prepareStatement(deleteQuery);
+                pstat.executeUpdate();
+
+                // Refresh the table
+                UpdateDB();
+
+                JOptionPane.showMessageDialog(null, "All records have been deleted successfully!");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+            }
+        }
+    }//GEN-LAST:event_jButtonHclearActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -368,9 +383,12 @@ public class V_eq_P_ov_I extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
+
+
 }

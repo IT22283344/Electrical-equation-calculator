@@ -69,12 +69,13 @@ public class Calculator extends javax.swing.JFrame {
         setTitle("Calculator ~");
 
         JPanel_Main.setBackground(new java.awt.Color(102, 255, 255));
+        JPanel_Main.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
 
         lbl_Calculator_Display.setFont(new java.awt.Font("Digital-7", 1, 36)); // NOI18N
         lbl_Calculator_Display.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lbl_Calculator_Display.setText("0");
         lbl_Calculator_Display.setToolTipText("");
-        lbl_Calculator_Display.setBorder(javax.swing.BorderFactory.createLineBorder(null, null));
+        lbl_Calculator_Display.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
 
         btn_Number_7.setFont(new java.awt.Font("Yu Gothic", 1, 16)); // NOI18N
         btn_Number_7.setText("7");
@@ -315,6 +316,8 @@ public class Calculator extends javax.swing.JFrame {
         );
 
         JPanel_MainLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btn_Addition, btn_Backspace, btn_Clear, btn_Division, btn_Dot, btn_Equal, btn_Multiplication, btn_Number_0, btn_Number_1, btn_Number_2, btn_Number_3, btn_Number_4, btn_Number_5, btn_Number_6, btn_Number_7, btn_Number_8, btn_Number_9, btn_Pluse_or_Minus, btn_Subtraction});
+
+        JMenu_Bar_Main.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
 
         J_File_Menu.setText("File");
 

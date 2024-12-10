@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package gui;
 
@@ -10,7 +9,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.Vector;
 import javax.swing.JOptionPane;
@@ -18,12 +16,14 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author User
+ * @author CHANNA PRABHATH
  */
-public class V_eq_IR extends javax.swing.JPanel {
+public class P_eq_IIR extends javax.swing.JPanel {
 
-    Equation eq;
-    DecimalFormat df = new DecimalFormat("0.00");
+    /**
+     *
+     * @param aThis1
+     */
     
     private final String url = "jdbc:mysql://localhost:3306/eleccal"; 
     private final String username = "root"; 
@@ -33,28 +33,18 @@ public class V_eq_IR extends javax.swing.JPanel {
     PreparedStatement pstat=null;
     ResultSet rs =null;
     int q,i,id,deletecount;
-
-    /**
-     * Creates new form V_eq_IR
-     */
-    public V_eq_IR() {
+     
+   
+    public P_eq_IIR(Equation aThis) {
         initComponents();
         UpdateDB();
-
-    }
-
-    public V_eq_IR(Equation eq) {
-        initComponents();
-        this.eq = eq;
-        UpdateDB();
-
     }
     
-     public void UpdateDB(){
+    public void UpdateDB(){
         try{
             Class.forName("com.mysql.jdbc.Driver");
             sqlCon = DriverManager.getConnection(url,username,password);
-            pstat = sqlCon.prepareStatement("SELECT * FROM vhistory ORDER BY  updated_at DESC");
+            pstat = sqlCon.prepareStatement("SELECT * FROM piirhistory ORDER BY  updated_at DESC");
             
             rs = pstat.executeQuery();
             ResultSetMetaData stData =rs.getMetaData();
@@ -69,7 +59,7 @@ public class V_eq_IR extends javax.swing.JPanel {
                 for(i=1; i<=q; i++){
                     columnData.add(rs.getString("I"));
                     columnData.add(rs.getString("R"));
-                    columnData.add(rs.getString("V"));
+                    columnData.add(rs.getString("P"));
 
 
                 }
@@ -83,6 +73,7 @@ public class V_eq_IR extends javax.swing.JPanel {
         
     }
 
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -92,7 +83,6 @@ public class V_eq_IR extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane2 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
@@ -109,10 +99,8 @@ public class V_eq_IR extends javax.swing.JPanel {
         jButtonHclear = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
-        setPreferredSize(new java.awt.Dimension(646, 415));
-
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true), "V=IR", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 14))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true), "P=IIR", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 14))); // NOI18N
 
         jButton1.setBackground(new java.awt.Color(0, 153, 255));
         jButton1.setFont(new java.awt.Font("Bodoni MT", 1, 18)); // NOI18N
@@ -154,7 +142,7 @@ public class V_eq_IR extends javax.swing.JPanel {
 
         jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Current (I)   :-");
+        jLabel3.setText("Current (I^2)   :-");
 
         jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -167,7 +155,7 @@ public class V_eq_IR extends javax.swing.JPanel {
 
         jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("Voltage (V) :-");
+        jLabel6.setText("Power (P)  : -");
 
         jTableIR.setAutoCreateRowSorter(true);
         jTableIR.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -196,7 +184,7 @@ public class V_eq_IR extends javax.swing.JPanel {
                 {null, null, null}
             },
             new String [] {
-                "I", "R", "V"
+                "I^2", "R", "P"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -246,7 +234,7 @@ public class V_eq_IR extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -262,7 +250,7 @@ public class V_eq_IR extends javax.swing.JPanel {
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(28, 28, 28)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -317,7 +305,7 @@ public class V_eq_IR extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 4, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -326,36 +314,31 @@ public class V_eq_IR extends javax.swing.JPanel {
         String R = jTextField2.getText();
 
         Double I_D = Double.valueOf(I);
+        Double II= I_D*I_D;
         Double R_D = Double.valueOf(R);
-        Double Total_V = I_D * R_D;
-        
-        
-        
+        Double Total_V = II* R_D;
+
         jLabel1.setText(Total_V.toString());
-        
-         try{
+
+        try{
             Class.forName("com.mysql.jdbc.Driver");
-            sqlCon = DriverManager.getConnection(url,username,password);
-            pstat = sqlCon.prepareStatement("insert into vhistory(I,R,V)value(?,?,?)");
-            
-            
-            pstat.setString(1,jTextField1.getText());
+            sqlCon =  DriverManager.getConnection(url,username,password);
+            pstat = sqlCon.prepareStatement("insert into piirhistory(I,R,P)value(?,?,?)");
+
+           
+            pstat.setString(1, String.valueOf(II));
             pstat.setString(2,jTextField2.getText());
             pstat.setString(3,jLabel1.getText());
-            
+
             pstat.executeUpdate();
             UpdateDB();
 
-         }catch(Exception ex){
-             
-         }   
+        }catch(Exception ex){
 
+        }
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
-
-
-    
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
@@ -363,6 +346,15 @@ public class V_eq_IR extends javax.swing.JPanel {
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
+
+    private void jTableIRMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableIRMouseClicked
+        DefaultTableModel RecordTable = (DefaultTableModel)jTableIR.getModel();
+        int selectedrow = jTableIR.getSelectedRow();
+
+        jTextField1.setText(RecordTable.getValueAt(selectedrow,1).toString());
+        jTextField2.setText(RecordTable.getValueAt(selectedrow,2).toString());
+        jLabel1.setText(RecordTable.getValueAt(selectedrow,3).toString());
+    }//GEN-LAST:event_jTableIRMouseClicked
 
     private void jButtonHclearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHclearActionPerformed
         int confirmation = JOptionPane.showConfirmDialog(null,
@@ -376,7 +368,7 @@ public class V_eq_IR extends javax.swing.JPanel {
                 sqlCon = DriverManager.getConnection(url, username, password);
 
                 // Execute delete query
-                String deleteQuery = "DELETE FROM vhistory";
+                String deleteQuery = "DELETE FROM piirhistory";
                 pstat = sqlCon.prepareStatement(deleteQuery);
                 pstat.executeUpdate();
 
@@ -388,17 +380,8 @@ public class V_eq_IR extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
             }
         }
-        
+
     }//GEN-LAST:event_jButtonHclearActionPerformed
-
-    private void jTableIRMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableIRMouseClicked
-         DefaultTableModel RecordTable = (DefaultTableModel)jTableIR.getModel();
-        int selectedrow = jTableIR.getSelectedRow();
-
-        jTextField1.setText(RecordTable.getValueAt(selectedrow,1).toString());
-        jTextField2.setText(RecordTable.getValueAt(selectedrow,2).toString());
-        jLabel1.setText(RecordTable.getValueAt(selectedrow,3).toString());
-    }//GEN-LAST:event_jTableIRMouseClicked
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         jTextField1.setText("");
@@ -420,9 +403,10 @@ public class V_eq_IR extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTableIR;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
+
+   
 }
